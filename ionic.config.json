@@ -1,0 +1,8 @@
+{
+  "name": "movie-countdown",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
