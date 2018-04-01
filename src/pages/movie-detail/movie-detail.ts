@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { LoadingController, NavController, NavParams } from 'ionic-angular';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -8,7 +8,6 @@ import { MovieProvider } from '../../providers/movie/movie';
 import { Movie } from '../../models/movie';
 
 
-@IonicPage()
 @Component({
   selector: 'page-movie-detail',
   templateUrl: 'movie-detail.html',
