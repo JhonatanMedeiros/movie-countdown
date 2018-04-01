@@ -1,17 +1,65 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Filmes</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+
+  <ion-refresher (ionRefresh)="getUpcoming($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-card *ngFor="let movie of movies" (click)="getMovieDetail(movie)">
+
+    <ion-item>
+      <h2>{{movie.title}}</h2>
+      <p>{{movie.release_date | date:'dd MMM yyyy'}}</p>
+    </ion-item>
+
+    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path">
+
+    <ion-card-content>
+      <p>{{movie.overview}}</p>
+    </ion-card-content>
+
+    <ion-row>
+
+      <ion-col right text-right>
+        <button ion-button icon-left clear small outline color="danger">
+          <ion-icon name="heart-outline"></ion-icon>
+          <!--<ion-icon name="heart"></ion-icon>-->
+          <div>Like</div>
+        </button>
+      </ion-col>
+
+      <!--<ion-col>-->
+        <!--<button ion-button icon-left clear small>-->
+          <!--<ion-icon name="thumbs-up"></ion-icon>-->
+          <!--<div>12 Likes</div>-->
+        <!--</button>-->
+      <!--</ion-col>-->
+      <!--<ion-col>-->
+        <!--<button ion-button icon-left clear small>-->
+          <!--<ion-icon name="text"></ion-icon>-->
+          <!--<div>4 Comments</div>-->
+        <!--</button>-->
+      <!--</ion-col>-->
+      <!--<ion-col center text-center>-->
+        <!--<ion-note>-->
+          <!--11h ago-->
+        <!--</ion-note>-->
+      <!--</ion-col>-->
+    </ion-row>
+
+  </ion-card>
+
+
 </ion-content>
