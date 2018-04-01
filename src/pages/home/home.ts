@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { LoadingController, NavController } from 'ionic-angular';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,10 +15,13 @@ export class HomePage implements OnDestroy {
 
   movies: any[] = [];
 
+  loading: any;
+
   subscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
     private movieService: MovieProvider
   ) {
 
@@ -39,9 +42,18 @@ export class HomePage implements OnDestroy {
 
   getUpcoming(refresher?): void {
 
+    if (!refresher) {
+      this.loading = this.loadingCtrl.create({
+        content: 'Carregando...'
+      });
+
+      this.loading.present();
+    }
+
     this.movieService.getUpcoming()
       .subscribe(
         res => {
+
           console.log(res);
 
           this.movies = res.results;
@@ -53,6 +65,8 @@ export class HomePage implements OnDestroy {
         () => {
           if (refresher) {
             refresher.complete();
+          } else {
+            this.loading.dismiss();
           }
         }
       );
@@ -63,8 +77,6 @@ export class HomePage implements OnDestroy {
    */
 
   getMovieDetail(movie): void {
-
-    console.log(movie);
 
     this.navCtrl.push(MovieDetailPage, {
       id: movie.id,
