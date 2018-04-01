@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import { MovieProvider } from '../../providers/movie/movie';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Movie } from '../../models/movie';
 
 
 @IonicPage()
@@ -13,9 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MovieDetailPage {
 
-  movieId: number;
-  movieTitle: string;
-  movie: any;
+  movie: Movie = new Movie();
 
   loading: any;
 
@@ -28,8 +28,8 @@ export class MovieDetailPage {
     private movieService: MovieProvider
   ) {
 
-    this.movieId = navParams.get('id');
-    this.movieTitle = navParams.get('title');
+    this.movie.id = navParams.get('id');
+    this.movie.title = navParams.get('title');
 
     this.getMovieDetail();
   }
@@ -52,7 +52,7 @@ export class MovieDetailPage {
 
     this.loading.present();
 
-    this.subscription = this.movieService.getMovieById(this.movieId)
+    this.subscription = this.movieService.getMovieById(this.movie.id)
       .subscribe(
         res => {
           console.log(res);

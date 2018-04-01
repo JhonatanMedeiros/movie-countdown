@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{movieTitle}}</ion-title>
+    <ion-title>{{movie.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,6 +16,6 @@
     </button>
   </ion-fab>
 
-  <img [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" alt="">
+  <img [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
 
 </ion-content>

@@ -34,13 +34,14 @@ export class MovieProvider {
 
   }
 
-  getUpcoming(): Observable<any> {
+  getUpcoming(page: number = 1): Observable<any> {
 
     let url: string = `${
     this.baseUrl
     + '/movie/upcoming?'
     + 'api_key=' + this.apiKey
     + '&language=pt-BR'
+    + '&page=' + page
     }`;
 
     return this.http.get(url)

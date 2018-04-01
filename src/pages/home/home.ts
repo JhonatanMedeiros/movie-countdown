@@ -7,13 +7,15 @@ import { MovieDetailPage } from '../movie-detail/movie-detail';
 
 import { MovieProvider } from '../../providers/movie/movie';
 
+import { Movie } from '../../models/movie';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements OnDestroy {
 
-  movies: any[] = [];
+  movies: Movie[] = [];
 
   loading: any;
 
@@ -58,6 +60,13 @@ export class HomePage implements OnDestroy {
 
           this.movies = res.results;
 
+          this.movies.sort((a, b) => {
+            let aDate = new Date(a.release_date);
+            let bDate = new Date(b.release_date);
+            return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+          });
+
+
         },
         err => {
           console.log(err);
@@ -76,7 +85,7 @@ export class HomePage implements OnDestroy {
    * Functions
    */
 
-  getMovieDetail(movie): void {
+  getMovieDetail(movie: Movie): void {
 
     this.navCtrl.push(MovieDetailPage, {
       id: movie.id,
