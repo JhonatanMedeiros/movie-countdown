@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Content, Events, LoadingController, NavController } from 'ionic-angular';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,6 +15,8 @@ import { Movie } from '../../models/movie';
 })
 export class HomePage implements OnDestroy {
 
+  @ViewChild(Content) content: Content;
+
   movies: Movie[] = [];
 
   loading: any;
@@ -23,11 +25,17 @@ export class HomePage implements OnDestroy {
 
   constructor(
     public navCtrl: NavController,
+    public events: Events,
     public loadingCtrl: LoadingController,
     private movieService: MovieProvider
   ) {
 
     this.getUpcoming();
+
+    events.subscribe('scrollToTopHome', (res) => {
+      this.content.scrollToTop();
+    });
+
   }
 
 
