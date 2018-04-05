@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Content, Events, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, Content, Events, LoadingController, NavController, NavParams } from 'ionic-angular';
 
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
@@ -23,6 +23,7 @@ export class FavoritesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
+    public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private favService: FavoritesProvider
   ) { }
@@ -75,6 +76,20 @@ export class FavoritesPage {
 
   }
 
+  editFavorite(movie: Movie, index: number): void {
+
+    this.favService.editFavorite(movie)
+      .then(res => {
+        if (!res) {
+          this.movies.splice(index, 1);
+        }
+      })
+      .catch(err => {
+        this.movies[index].isFavorite = err
+      });
+
+  }
+
   /**
    * Functions
    */
@@ -86,6 +101,26 @@ export class FavoritesPage {
       title: movie.title
     });
 
+  }
+
+  showRemoveFav(movie: Movie, index: number) {
+
+    let confirm = this.alertCtrl.create({
+      title: 'Remover dos favoritos ?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => { }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.editFavorite(movie, index)
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   hideLoader(refresher?): void {

@@ -20,7 +20,7 @@
   </ion-refresher>
 
 
-  <ion-card *ngFor="let movie of movies">
+  <ion-card *ngFor="let movie of movies; let i = index">
 
     <ion-item (click)="getMovieDetail(movie)">
       <h2>{{movie.title}}</h2>
@@ -36,10 +36,18 @@
 
     <ion-row>
 
-      <ion-col center text-left>
+      <ion-col center text-center>
         <button ion-button icon-left clear small outline>
           <ion-icon name="star-outline"></ion-icon>
           <div>{{movie.vote_average || '0'}}</div>
+        </button>
+      </ion-col>
+
+      <ion-col center text-center>
+        <button ion-button icon-left clear small outline color="danger"
+                (click)="showRemoveFav(movie, i)">
+          <ion-icon name="heart"></ion-icon>
+          <div>Like</div>
         </button>
       </ion-col>
 
