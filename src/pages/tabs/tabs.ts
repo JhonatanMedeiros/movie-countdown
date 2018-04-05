@@ -17,17 +17,36 @@ export class TabsPage {
   tab2Root = FavoritesPage;
   tab3Root = AboutPage;
 
+  tab1Title: string = 'Inicio';
+  tab2Title: string = 'Favoritos';
+
   constructor(
     public events: Events
   ) { }
 
-  scrollToTop(event?): void {
+  scrollToTopHome(event?): void {
 
     let tab = this.tabRef.getSelected();
 
-    if (tab.isSelected && tab.tabTitle == 'Inicio') {
+    if (tab.isSelected && tab.tabTitle == this.tab1Title ) {
 
       this.events.publish('scrollToTopHome', {
+        tab: tab.tabTitle,
+        tabIndex: tab.index
+      });
+
+
+    }
+
+  }
+
+  scrollToTopFav(event?): void {
+
+    let tab = this.tabRef.getSelected();
+
+    if (tab.isSelected && tab.tabTitle == this.tab2Title ) {
+
+      this.events.publish('scrollToTopFav', {
         tab: tab.tabTitle,
         tabIndex: tab.index
       });

@@ -26,7 +26,13 @@ export class FavoritesPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private favService: FavoritesProvider
-  ) { }
+  ) {
+
+    events.subscribe('scrollToTopFav', (res) => {
+      this.content.scrollToTop();
+    });
+
+  }
 
   ionViewWillEnter() {
     this.getFavorites();
