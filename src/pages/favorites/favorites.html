@@ -7,6 +7,45 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+
+  <ion-refresher (ionRefresh)="getFavorites($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-card *ngFor="let movie of movies">
+
+    <ion-item (click)="getMovieDetail(movie)">
+      <h2>{{movie.title}}</h2>
+      <p>{{movie.release_date | date:'dd MMM yyyy'}}</p>
+    </ion-item>
+
+    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
+         (click)="getMovieDetail(movie)">
+
+    <ion-card-content *ngIf="movie.overview" (click)="getMovieDetail(movie)">
+      <p>{{movie.overview}}</p>
+    </ion-card-content>
+
+    <ion-row>
+
+      <ion-col center text-left>
+        <button ion-button icon-left clear small outline>
+          <ion-icon name="star-outline"></ion-icon>
+          <div>{{movie.vote_average || '0'}}</div>
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card>
+
 
 </ion-content>

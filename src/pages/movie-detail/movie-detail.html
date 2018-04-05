@@ -10,9 +10,9 @@
 <ion-content>
 
   <ion-fab right bottom>
-    <button ion-fab mini color="danger">
-      <!--<ion-icon name="heart"></ion-icon>-->
-      <ion-icon name="heart-outline"></ion-icon>
+    <button ion-fab mini color="danger" (click)="editFavorite()">
+      <ion-icon name="heart" *ngIf="isFav"></ion-icon>
+      <ion-icon name="heart-outline" *ngIf="!isFav"></ion-icon>
     </button>
   </ion-fab>
 

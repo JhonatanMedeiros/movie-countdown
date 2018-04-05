@@ -17,7 +17,7 @@
   </ion-refresher>
 
 
-  <ion-card *ngFor="let movie of movies">
+  <ion-card *ngFor="let movie of movies; let i = index">
 
     <ion-item (click)="getMovieDetail(movie)">
       <h2>{{movie.title}}</h2>
@@ -41,30 +41,14 @@
       </ion-col>
 
       <ion-col center text-center>
-        <button ion-button icon-left clear small outline color="danger">
-          <ion-icon name="heart-outline"></ion-icon>
-          <!--<ion-icon name="heart"></ion-icon>-->
+        <button ion-button icon-left clear small outline color="danger"
+        (click)="editFavorite(movie, i)">
+          <ion-icon name="heart-outline" *ngIf="!movie.isFavorite"></ion-icon>
+          <ion-icon name="heart" *ngIf="movie.isFavorite"></ion-icon>
           <div>Like</div>
         </button>
       </ion-col>
 
-      <!--<ion-col>-->
-        <!--<button ion-button icon-left clear small>-->
-          <!--<ion-icon name="thumbs-up"></ion-icon>-->
-          <!--<div>12 Likes</div>-->
-        <!--</button>-->
-      <!--</ion-col>-->
-      <!--<ion-col>-->
-        <!--<button ion-button icon-left clear small>-->
-          <!--<ion-icon name="text"></ion-icon>-->
-          <!--<div>4 Comments</div>-->
-        <!--</button>-->
-      <!--</ion-col>-->
-      <!--<ion-col center text-center>-->
-        <!--<ion-note>-->
-          <!--11h ago-->
-        <!--</ion-note>-->
-      <!--</ion-col>-->
     </ion-row>
 
   </ion-card>

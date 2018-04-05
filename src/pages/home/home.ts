@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { MovieDetailPage } from '../movie-detail/movie-detail';
 
 import { MovieProvider } from '../../providers/movie/movie';
+import { FavoritesProvider } from '../../providers/favorites/favorites';
 
 import { Movie } from '../../models/movie';
 
@@ -27,7 +28,8 @@ export class HomePage {
     public navCtrl: NavController,
     public events: Events,
     public loadingCtrl: LoadingController,
-    private movieService: MovieProvider
+    private movieService: MovieProvider,
+    private favService: FavoritesProvider
   ) {
 
     this.getUpcoming();
@@ -63,8 +65,6 @@ export class HomePage {
       .subscribe(
         res => {
 
-          //console.log(res);
-
           this.movies = res.results;
 
           this.movies.sort((a, b) => {
@@ -73,17 +73,12 @@ export class HomePage {
             return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
           });
 
-
         },
         err => {
           console.log(err);
         },
         () => {
-          if (refresher) {
-            refresher.complete();
-          } else {
-            this.loading.dismiss();
-          }
+          this.verifyListFavs(refresher);
         }
       );
   }
@@ -92,6 +87,50 @@ export class HomePage {
    * Functions
    */
 
+  verifyListFavs(refresher?) {
+
+
+    if (this.movies.length > 0) {
+
+      let listFav: Array<Movie> = [];
+      return this.favService.getAllFavorites()
+        .then((res) => {
+
+          if (res) {
+
+            try {
+              listFav = JSON.parse(JSON.stringify(res));
+            } catch (e) {
+              listFav = [];
+            }
+
+            for (let key in listFav) {
+
+              let index = this.movies.findIndex(value => value.id === listFav[key].id);
+
+              if (index > -1) {
+                this.movies[index].isFavorite = true;
+              }
+
+            }
+
+            this.hideLoader(refresher);
+
+          } else {
+            this.hideLoader(refresher);
+          }
+
+        })
+        .catch(err => {
+          this.hideLoader(refresher);
+        });
+
+    } else {
+      this.hideLoader(refresher);
+    }
+
+  }
+
   getMovieDetail(movie: Movie): void {
 
     this.navCtrl.push(MovieDetailPage, {
@@ -99,6 +138,26 @@ export class HomePage {
       title: movie.title
     });
 
+  }
+
+  editFavorite(movie: Movie, index: number): void {
+
+    this.favService.editFavorite(movie)
+      .then(res => {
+        this.movies[index].isFavorite = res;
+      })
+      .catch(err => {
+        this.movies[index].isFavorite = err
+      });
+
+  }
+
+  hideLoader(refresher?): void {
+    if (refresher) {
+      refresher.complete();
+    } else {
+      this.loading.dismiss();
+    }
   }
 
 }

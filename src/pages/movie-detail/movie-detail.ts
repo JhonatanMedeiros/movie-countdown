@@ -4,6 +4,7 @@ import { LoadingController, NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { MovieProvider } from '../../providers/movie/movie';
+import { FavoritesProvider } from '../../providers/favorites/favorites';
 
 import { Movie } from '../../models/movie';
 
@@ -15,6 +16,8 @@ import { Movie } from '../../models/movie';
 export class MovieDetailPage {
 
   movie: Movie = new Movie();
+
+  isFav: boolean = false;
 
   loading: any;
 
@@ -30,13 +33,15 @@ export class MovieDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
-    private movieService: MovieProvider
+    private movieService: MovieProvider,
+    private favService: FavoritesProvider
   ) {
 
     this.movie.id = navParams.get('id');
     this.movie.title = navParams.get('title');
 
     this.getMovieDetail();
+    this.getFavorite();
   }
 
   ionViewDidLoad() { }
@@ -114,6 +119,22 @@ export class MovieDetailPage {
 
     }, 1000);
 
+
+  }
+
+  getFavorite(): void {
+
+    this.favService.getFavorite(this.movie)
+      .then(res => this.isFav = res )
+      .catch(err => this.isFav = err );
+
+  }
+
+  editFavorite(): void {
+
+    this.favService.editFavorite(this.movie)
+      .then(res => this.isFav = res )
+      .catch(err => this.isFav = err );
 
   }
 

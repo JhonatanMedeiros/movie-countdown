@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -15,6 +16,7 @@ import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
 import { FavoritesPage } from '../pages/favorites/favorites';
 
 import { MovieProvider } from '../providers/movie/movie';
+import { FavoritesProvider } from '../providers/favorites/favorites';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MovieProvider } from '../providers/movie/movie';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,7 +46,8 @@ import { MovieProvider } from '../providers/movie/movie';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MovieProvider
+    MovieProvider,
+    FavoritesProvider
   ]
 })
 export class AppModule {}
