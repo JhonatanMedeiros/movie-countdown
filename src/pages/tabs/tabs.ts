@@ -16,11 +16,8 @@ export class TabsPage {
   tab2Root = AboutPage;
 
   constructor(
-    private navCtrl: NavController,
     public events: Events
-  ) {
-
-  }
+  ) { }
 
   scrollToTop(event?): void {
 

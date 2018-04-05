@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Content, Events, LoadingController, NavController } from 'ionic-angular';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -13,7 +13,7 @@ import { Movie } from '../../models/movie';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnDestroy {
+export class HomePage {
 
   @ViewChild(Content) content: Content;
 
@@ -38,8 +38,7 @@ export class HomePage implements OnDestroy {
 
   }
 
-
-  ngOnDestroy(): void {
+  ionViewWillUnload() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -64,7 +63,7 @@ export class HomePage implements OnDestroy {
       .subscribe(
         res => {
 
-          console.log(res);
+          //console.log(res);
 
           this.movies = res.results;
 

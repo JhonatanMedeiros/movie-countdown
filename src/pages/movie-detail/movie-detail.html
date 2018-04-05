@@ -18,4 +18,9 @@
 
   <img [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
 
+
+  <div class="countdown-timer" *ngIf="movie.release_date">
+    {{days + 'd ' +  hours + 'h ' + minutes + 'm ' + seconds + 's'}}
+  </div>
+
 </ion-content>
