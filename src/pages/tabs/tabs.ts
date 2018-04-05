@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Tabs, Events } from 'ionic-angular';
+import { Tabs, Events } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
+import { FavoritesPage } from '../favorites/favorites';
 import { AboutPage } from '../about/about';
 
 
@@ -13,7 +14,8 @@ export class TabsPage {
   @ViewChild('myTabs') tabRef: Tabs;
 
   tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab2Root = FavoritesPage;
+  tab3Root = AboutPage;
 
   constructor(
     public events: Events

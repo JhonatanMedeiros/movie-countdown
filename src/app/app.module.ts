@@ -11,17 +11,19 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
+import { FavoritesPage } from '../pages/favorites/favorites';
 
 import { MovieProvider } from '../providers/movie/movie';
-import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    TabsPage,
     HomePage,
     MovieDetailPage,
-    TabsPage
+    FavoritesPage,
+    AboutPage,
   ],
   imports: [
     BrowserModule,
@@ -31,10 +33,11 @@ import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    TabsPage,
     HomePage,
     MovieDetailPage,
-    TabsPage
+    FavoritesPage,
+    AboutPage,
   ],
   providers: [
     StatusBar,
