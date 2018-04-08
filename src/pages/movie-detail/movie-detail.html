@@ -74,6 +74,26 @@
     </ion-slides>
 
 
+  </div>
+
+
+  <div class="movie-cast" *ngIf="movie.credits?.cast?.length > 0">
+
+    <p>Elenco</p>
+
+    <ion-slides [slidesPerView]="2">
+
+      <ion-slide *ngFor="let cast of movie.credits.cast">
+
+        <div class="cast">
+          <img class="profile-img" [src]="'https://image.tmdb.org/t/p/w400' + cast.profile_path" [alt]="cast.name">
+          <p class="name">{{cast.name}}</p>
+          <p class="character">{{cast.character}}</p>
+        </div>
+
+      </ion-slide>
+
+    </ion-slides>
 
   </div>
 

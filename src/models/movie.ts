@@ -1,5 +1,8 @@
-import { MovieGenres } from './movie-genres';
 import { SafeResourceUrl } from '@angular/platform-browser';
+
+import { MovieGenres } from './movie-genres';
+import { MovieCredits } from './movie-credits';
+
 
 export class Movie {
   adult: boolean;
@@ -30,6 +33,7 @@ export class Movie {
   vote_count: number;
   isFavorite?: boolean;
   videos?: {results: Array<MovieVideos>};
+  credits?: MovieCredits
 }
 
 export class MovieVideos {

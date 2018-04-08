@@ -15,6 +15,8 @@ page-movie-detail {
     .movie-title {
       color: #222;
       font-size: 20px;
+      margin-bottom: 5px;
+      line-height: 1.0;
     }
 
     .movie-release-date {
@@ -58,12 +60,65 @@ page-movie-detail {
   .movie-trailer {
     padding: 10px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     box-shadow: 0px 2px 4px #c3c3c3;
 
     p {
       color: #222;
       font-size: 20px;
+    }
+  }
+
+  .movie-cast {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    //box-shadow: 0px 2px 4px #c3c3c3;
+
+    p {
+      color: #222;
+      font-size: 20px;
+    }
+
+    .cast {
+
+      //width: 140px;
+      margin-right: 10px;
+      background-color: #fff;
+      box-sizing: border-box;
+      border: 1px solid #e3e3e3;
+      padding-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+      .profile-img {
+        //width: 138px;
+        //height: 175px;
+        //display: block;
+      }
+
+      p {
+        font-size: 1em;
+        line-height: 1.4em;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 10px;
+      }
+      p:first-of-type {
+        padding: 10px 10px 0 10px;
+      }
+
+      .name {
+        font-weight: bold;
+        color: #000;
+      }
+
+      .character {
+        font-size: 0.9em;
+        margin-bottom: 0;
+      }
+
     }
   }
 

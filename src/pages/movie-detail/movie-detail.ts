@@ -70,6 +70,8 @@ export class MovieDetailPage {
       .subscribe(
         res => {
 
+          console.log(res);
+
           this.movie = res;
 
           this.securityMovieVideosUrl();
