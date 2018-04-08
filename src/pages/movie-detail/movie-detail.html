@@ -1,7 +1,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{movie.title}}</ion-title>
+
+    <ion-title>Detalhes</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="share-alt"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -16,11 +24,50 @@
     </button>
   </ion-fab>
 
-  <img [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
+  <img class="movie-thumb" [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
 
+  <div class="movie-detail">
 
-  <div class="countdown-timer" *ngIf="movie.release_date">
+    <span class="movie-title">
+      {{movie.title}}
+    </span>
+
+    <span class="movie-release-date">
+      {{movie.release_date | date:'dd MMMM yyyy'}}
+    </span>
+
+    <div class="movie-genres">
+      <div *ngFor="let genre of movie.genres | genres; let isLast = last">
+        {{genre.name}}{{isLast ? '' : ', '}}
+      </div>
+    </div>
+
+    <span class="countdown-timer" *ngIf="movie.release_date">
     {{days + 'd ' +  hours + 'h ' + minutes + 'm ' + seconds + 's'}}
+    </span>
+
+  </div>
+
+
+  <div class="movie-about" *ngIf="movie.overview">
+
+    <p>Sobre</p>
+
+    <span>
+      {{movie.overview}}
+    </span>
+
+
+  </div>
+
+  <div class="movie-trailer" *ngIf="movie.videos?.results?.length > 0">
+
+    <div *ngFor="let trailer of movie.videos?.results">
+      <iframe width="auto" height="auto" *ngIf="trailer.urlParse"
+              [src]="trailer.urlParse ? trailer.urlParse : null" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+
   </div>
 
 </ion-content>

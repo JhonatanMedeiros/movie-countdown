@@ -24,6 +24,7 @@ export class MovieProvider {
     this.baseUrl
     + '/movie/' + id
     + '?api_key=' + this.apiKey
+    + '&append_to_response=videos'
     + '&language=pt-BR'
     }`;
 

@@ -15,6 +15,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { MovieDetailPage } from '../pages/movie-detail/movie-detail';
 import { FavoritesPage } from '../pages/favorites/favorites';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 import { MovieProvider } from '../providers/movie/movie';
 import { FavoritesProvider } from '../providers/favorites/favorites';
 
@@ -31,7 +33,8 @@ import { FavoritesProvider } from '../providers/favorites/favorites';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

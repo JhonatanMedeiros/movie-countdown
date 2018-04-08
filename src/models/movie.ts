@@ -1,4 +1,5 @@
 import { MovieGenres } from './movie-genres';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class Movie {
   adult: boolean;
@@ -28,4 +29,17 @@ export class Movie {
   vote_average: number;
   vote_count: number;
   isFavorite?: boolean;
+  videos?: {results: Array<MovieVideos>};
+}
+
+export class MovieVideos {
+  id: string;
+  iso_639_1?: string;
+  iso_3166_1?: string;
+  key: string;
+  name: string;
+  site?: string;
+  size: number;
+  type?: string;
+  urlParse?: SafeResourceUrl
 }

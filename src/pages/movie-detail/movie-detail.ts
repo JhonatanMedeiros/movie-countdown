@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoadingController, NavController, NavParams } from 'ionic-angular';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -32,6 +33,7 @@ export class MovieDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private domSanitizer: DomSanitizer,
     public loadingCtrl: LoadingController,
     private movieService: MovieProvider,
     private favService: FavoritesProvider
@@ -69,6 +71,8 @@ export class MovieDetailPage {
         res => {
 
           this.movie = res;
+
+          this.securityMovieVideosUrl();
 
           if (this.movie.release_date) {
             this.countdownTimer();
@@ -135,6 +139,26 @@ export class MovieDetailPage {
     this.favService.editFavorite(this.movie)
       .then(res => this.isFav = res )
       .catch(err => this.isFav = err );
+
+  }
+
+  securityMovieVideosUrl(): void {
+    // this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.video.url);
+
+    if (this.movie.videos.results.length > 0) {
+
+      this.movie.videos.results.map((item) => {
+
+        let url: string  = 'https://www.youtube.com/embed/' + item.key;
+
+        return item.urlParse = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+
+      });
+
+      console.log(this.movie.videos.results)
+
+
+    }
 
   }
 
