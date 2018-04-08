@@ -143,7 +143,6 @@ export class MovieDetailPage {
   }
 
   securityMovieVideosUrl(): void {
-    // this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.video.url);
 
     if (this.movie.videos.results.length > 0) {
 
@@ -154,8 +153,6 @@ export class MovieDetailPage {
         return item.urlParse = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
 
       });
-
-      console.log(this.movie.videos.results)
 
 
     }

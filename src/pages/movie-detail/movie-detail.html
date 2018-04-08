@@ -26,6 +26,7 @@
 
   <img class="movie-thumb" [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
 
+
   <div class="movie-detail">
 
     <span class="movie-title">
@@ -60,12 +61,18 @@
 
   </div>
 
+
   <div class="movie-trailer" *ngIf="movie.videos?.results?.length > 0">
 
-    <div *ngFor="let trailer of movie.videos?.results">
-      <iframe width="auto" height="auto" *ngIf="trailer.urlParse"
-              [src]="trailer.urlParse ? trailer.urlParse : null" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <p>Trailers</p>
+
+    <ion-slides>
+      <ion-slide *ngFor="let trailer of movie.videos?.results">
+        <iframe width="auto" height="auto" *ngIf="trailer.urlParse"
+          [src]="trailer.urlParse ? trailer.urlParse : null" frameborder="0" allowfullscreen></iframe>
+      </ion-slide>
+    </ion-slides>
+
 
 
   </div>
