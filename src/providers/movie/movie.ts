@@ -51,16 +51,14 @@ export class MovieProvider {
 
   }
 
-  searchMovie(query: string, page?: number): Observable<any> {
+  searchMovie(query: string, page: number = 1): Observable<any> {
 
     let url: string = `${
       this.baseUrl
-      + '/movie?'
+      + '/search/movie?'
       + 'api_key=' + this.apiKey
-      + '&'
-      + query
-      + '&'
-      + page
+      + '&query='
+      + query  
       + '&language=pt-BR'
     }`;
 

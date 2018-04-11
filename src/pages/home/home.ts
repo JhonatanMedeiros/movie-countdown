@@ -20,6 +20,9 @@ export class HomePage {
 
   movies: Movie[] = [];
 
+  showSearchInput: boolean = false;
+  inputSearch: string = '';
+
   loading: any;
 
   subscription: Subscription;
@@ -81,6 +84,36 @@ export class HomePage {
           this.verifyListFavs(refresher);
         }
       );
+  }
+
+  searchMovie(): void {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando...'
+    });
+
+    this.loading.present();
+
+    this.subscription = this.movieService.searchMovie(this.inputSearch)
+      .subscribe(
+        res => {
+
+          this.movies = res.results;
+
+          this.movies.sort((a, b) => {
+            let aDate = new Date(a.release_date);
+            let bDate = new Date(b.release_date);
+            return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+          });
+        },
+        error => {
+          this.hideLoader();
+        },
+        () => {
+          this.verifyListFavs();
+        }
+      );
+
   }
 
   /**
@@ -158,6 +191,20 @@ export class HomePage {
     } else {
       this.loading.dismiss();
     }
+  }
+
+  onCancel(event): void {
+    this.showSearchInput = !this.showSearchInput;
+  }
+
+  onInput(event): void {
+
+    if (this.inputSearch && this.inputSearch.trim()) {
+      this.searchMovie();
+    } else {
+      this.getUpcoming();
+    }
+
   }
 
 }

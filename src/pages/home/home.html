@@ -1,6 +1,24 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Filmes</ion-title>
+
+    <ion-title *ngIf="!showSearchInput">Filmes</ion-title>
+
+    <ion-searchbar
+      *ngIf="showSearchInput"
+      placeholder="Busque por filmes"
+      [(ngModel)]="inputSearch"
+      [showCancelButton]="true"
+      [debounce]="500"
+      (ionCancel)="onCancel($event)"
+      (ionInput)="onInput($event)"></ion-searchbar>
+
+    <ion-buttons end *ngIf="!showSearchInput">
+      <button ion-button icon-only
+              (click)="showSearchInput = !showSearchInput">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
@@ -16,6 +34,14 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <div *ngIf="movies.length == 0"
+  style="text-align: center;padding: 10px;">
+
+    <span>
+      Nenhum filme encontrado.
+    </span>
+
+  </div>
 
   <ion-card *ngFor="let movie of movies; let i = index">
 
