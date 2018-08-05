@@ -1,8 +1,11 @@
+// Angular Imports
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+// Ionic Imports
 import { Storage } from '@ionic/storage';
 
+// Models Imports
 import { Movie } from '../../models/movie';
 
 @Injectable()
@@ -51,15 +54,9 @@ export class FavoritesProvider {
           }
         }
 
-        let index = list.findIndex(value => value.id === movie.id);
+        const index = list.findIndex(value => value.id === movie.id);
 
-        if (index > -1) {
-
-          return true;
-
-        } else {
-          return false;
-        }
+        return index > -1;
 
       })
       .catch((err) => {
@@ -80,7 +77,7 @@ export class FavoritesProvider {
           list = JSON.parse(val);
         }
 
-        let index = list.findIndex(value => value.id === movie.id);
+        const index = list.findIndex(value => value.id === movie.id);
 
         if (index > -1) {
 

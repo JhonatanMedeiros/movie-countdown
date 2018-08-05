@@ -1,11 +1,18 @@
+// Angular Imports
 import { Component, ViewChild } from '@angular/core';
-import { AlertController, Content, Events, LoadingController, NavController, NavParams } from 'ionic-angular';
 
+// Ionic Imports
+import { AlertController, Content, Events, LoadingController, NavController } from 'ionic-angular';
+import { Loading } from 'ionic-angular/components/loading/loading';
+
+// Provider Imports
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
-import { Movie } from '../../models/movie';
+// Page Imports
 import { MovieDetailPage } from '../movie-detail/movie-detail';
 
+// Models
+import { Movie } from '../../models/movie';
 
 @Component({
   selector: 'page-favorites',
@@ -17,11 +24,10 @@ export class FavoritesPage {
 
   movies: Movie[] = [];
 
-  loading: any;
+  loading: Loading;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public events: Events,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
@@ -75,9 +81,7 @@ export class FavoritesPage {
 
       }))
       .catch((err => {
-
         this.hideLoader(refresher);
-
       }))
 
   }

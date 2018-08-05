@@ -1,4 +1,7 @@
+// Angular Imports
 import { Component } from '@angular/core';
+
+// Ionic Imports
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -7,8 +10,6 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
-  constructor(public navCtrl: NavController) {
-
-  }
+  constructor(public navCtrl: NavController) { }
 
 }

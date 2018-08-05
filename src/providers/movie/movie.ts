@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+// Angular Imports
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+// Rxjs Imports
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
@@ -9,63 +12,49 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class MovieProvider {
 
-  baseUrl: string = 'https://api.themoviedb.org/3';
-
-  apiKey: string = '';
-
-  constructor(
-    public http: HttpClient
-  ) { }
-
+  constructor(public http: HttpClient) { }
 
   getMovieById(id: number): Observable<any> {
 
-    let url: string = `${
-    this.baseUrl
-    + '/movie/' + id
-    + '?api_key=' + this.apiKey
-    + '&append_to_response=videos,credits'
-    + '&language=pt-BR'
-    }`;
+    const url = `/movie/${id}`;
 
-    return this.http.get(url)
+    const params = new HttpParams()
+      .append('append_to_response', 'videos,credits');
+
+    const opts = { params: params };
+
+    return this.http.get(url, opts)
       .map(res => res)
       .catch(err=> Observable.throw(err.message));
-
-
   }
 
   getUpcoming(page: number = 1): Observable<any> {
 
-    let url: string = `${
-    this.baseUrl
-    + '/movie/upcoming?'
-    + 'api_key=' + this.apiKey
-    + '&language=pt-BR'
-    + '&page=' + page
-    }`;
+    const url = `/movie/upcoming`;
 
-    return this.http.get(url)
+    const params = new HttpParams()
+      .append('page', page.toString());
+
+    const opts = { params: params };
+
+    return this.http.get(url, opts)
       .map(res => res)
       .catch(err=> Observable.throw(err.message));
-
   }
 
   searchMovie(query: string, page: number = 1): Observable<any> {
 
-    let url: string = `${
-      this.baseUrl
-      + '/search/movie?'
-      + 'api_key=' + this.apiKey
-      + '&query='
-      + query  
-      + '&language=pt-BR'
-    }`;
+    const url = `/search/movie`;
 
-    return this.http.get(url)
+    const params = new HttpParams()
+      .append('query', query)
+      .append('page', page.toString());
+
+    const opts = { params: params };
+
+    return this.http.get(url, opts)
       .map(res => res)
       .catch(err=> Observable.throw(err.message));
-
   }
 
 }

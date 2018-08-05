@@ -1,5 +1,7 @@
+// Angular Imports
 import { Pipe, PipeTransform } from '@angular/core';
 
+// Models Imports
 import { MovieGenres } from '../../models/movie-genres';
 
 @Pipe({
@@ -24,8 +26,5 @@ export class GenresPipe implements PipeTransform {
     });
 
     return itens;
-
-
-
   }
 }

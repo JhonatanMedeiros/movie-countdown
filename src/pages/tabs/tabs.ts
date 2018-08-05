@@ -7,7 +7,13 @@ import { AboutPage } from '../about/about';
 
 
 @Component({
-  templateUrl: 'tabs.html'
+  template: `
+    <ion-tabs #myTabs>
+      <ion-tab [root]="tab1Root" (ionSelect)="scrollToTopHome($event)" [tabTitle]="tab1Title" tabIcon="home"></ion-tab>
+      <ion-tab [root]="tab2Root" (ionSelect)="scrollToTopFav($event)" [tabTitle]="tab2Title" tabIcon="heart"></ion-tab>
+      <ion-tab [root]="tab3Root" tabTitle="Sobre" tabIcon="information-circle"></ion-tab>
+    </ion-tabs>
+  `
 })
 export class TabsPage {
 

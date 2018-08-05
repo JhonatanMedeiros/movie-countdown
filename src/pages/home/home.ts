@@ -1,13 +1,20 @@
+//Angular Imports
 import { Component, ViewChild } from '@angular/core';
+
+// Ionic Imports
 import { Content, Events, LoadingController, NavController } from 'ionic-angular';
 
+// Rxjs Imports
 import { Subscription } from 'rxjs/Subscription';
 
+// Page Imports
 import { MovieDetailPage } from '../movie-detail/movie-detail';
 
+// Provider Imports
 import { MovieProvider } from '../../providers/movie/movie';
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
+// Models
 import { Movie } from '../../models/movie';
 
 @Component({

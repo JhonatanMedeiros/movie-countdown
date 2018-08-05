@@ -1,14 +1,19 @@
+// Angular Imports
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
+// Ionic Imports
 import { LoadingController, NavController, NavParams } from 'ionic-angular';
 
+// Rxjs Imports
 import { Subscription } from 'rxjs/Subscription';
 
+// Provider Imports
 import { MovieProvider } from '../../providers/movie/movie';
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
+// Models
 import { Movie } from '../../models/movie';
-
 
 @Component({
   selector: 'page-movie-detail',
@@ -48,10 +53,7 @@ export class MovieDetailPage {
 
   ionViewDidLoad() { }
 
-  ionViewWillUnload() {
-    // this.navCtrl.pop();
-  }
-
+  ionViewWillUnload() { }
 
 
   /**
@@ -69,9 +71,6 @@ export class MovieDetailPage {
     this.subscription = this.movieService.getMovieById(this.movie.id)
       .subscribe(
         res => {
-
-          console.log(res);
-
           this.movie = res;
 
           this.securityMovieVideosUrl();
@@ -82,7 +81,7 @@ export class MovieDetailPage {
 
         },
         err => {
-          console.log(err)
+          this.loading.dismiss();
         },
         () => {
           this.loading.dismiss();
@@ -102,11 +101,11 @@ export class MovieDetailPage {
     let x = setInterval(() => {
 
       // Get todays date and time
-      let now = new Date().getTime();
-      let countDownDate = new Date(this.movie.release_date);
+      const now = new Date().getTime();
+      const countDownDate = new Date(this.movie.release_date);
 
       // Find the distance between now an the count down date
-      let distance = Number(countDownDate) - now;
+      const distance = Number(countDownDate) - now;
 
       // Time calculations for days, hours, minutes and seconds
       this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -129,19 +128,15 @@ export class MovieDetailPage {
   }
 
   getFavorite(): void {
-
     this.favService.getFavorite(this.movie)
       .then(res => this.isFav = res )
       .catch(err => this.isFav = err );
-
   }
 
   editFavorite(): void {
-
     this.favService.editFavorite(this.movie)
       .then(res => this.isFav = res )
       .catch(err => this.isFav = err );
-
   }
 
   securityMovieVideosUrl(): void {
@@ -150,7 +145,7 @@ export class MovieDetailPage {
 
       this.movie.videos.results.map((item) => {
 
-        let url: string  = 'https://www.youtube.com/embed/' + item.key;
+        const url: string  = 'https://www.youtube.com/embed/' + item.key;
 
         return item.urlParse = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
 

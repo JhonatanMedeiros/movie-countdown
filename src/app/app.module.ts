@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,6 +19,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import { MovieProvider } from '../providers/movie/movie';
 import { FavoritesProvider } from '../providers/favorites/favorites';
+import { HttpsRequestInterceptorProvider } from '../providers/https-request-interceptor/https-request-interceptor';
 
 @NgModule({
   declarations: [
@@ -48,9 +49,10 @@ import { FavoritesProvider } from '../providers/favorites/favorites';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     MovieProvider,
-    FavoritesProvider
+    FavoritesProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpsRequestInterceptorProvider, multi: true }
   ]
 })
 export class AppModule {}
