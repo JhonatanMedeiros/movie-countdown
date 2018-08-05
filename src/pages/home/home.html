@@ -50,7 +50,8 @@
       <p>{{movie.release_date | date:'dd MMM yyyy'}}</p>
     </ion-item>
 
-    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
+    <img [src]="imgPosterURL + movie.poster_path"
+         onerror="this.src='assets/imgs/thumb.svg'"
          (click)="getMovieDetail(movie)">
 
     <ion-card-content *ngIf="movie.overview" (click)="getMovieDetail(movie)">

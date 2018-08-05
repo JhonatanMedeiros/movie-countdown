@@ -81,8 +81,6 @@ page-movie-detail {
     }
 
     .cast {
-
-      //width: 140px;
       margin-right: 10px;
       background-color: #fff;
       box-sizing: border-box;
@@ -91,16 +89,14 @@ page-movie-detail {
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 
       .profile-img {
-        //width: 138px;
-        //height: 175px;
-        //display: block;
+        height: 240px;
+        width: 185px;
       }
 
       p {
         font-size: 1em;
         line-height: 1.4em;
         margin: 0;
-        padding: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         padding: 0 10px;

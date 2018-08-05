@@ -14,8 +14,11 @@ import { MovieDetailPage } from '../movie-detail/movie-detail';
 import { MovieProvider } from '../../providers/movie/movie';
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
-// Models
+// Models Imports
 import { Movie } from '../../models/movie';
+
+// Config Imports
+import { config } from '../../config/config';
 
 @Component({
   selector: 'page-home',
@@ -31,6 +34,8 @@ export class HomePage {
   inputSearch: string = '';
 
   loading: any;
+
+  imgPosterURL = config.imgSizesUrl.poster_sizes.w342;
 
   subscription: Subscription;
 

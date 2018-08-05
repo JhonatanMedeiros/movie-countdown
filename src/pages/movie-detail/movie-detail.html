@@ -24,8 +24,10 @@
     </button>
   </ion-fab>
 
-  <img class="movie-thumb" [src]="'https://image.tmdb.org/t/p/w400' + movie?.backdrop_path" [alt]="movie.title">
-
+  <img class="movie-thumb"
+       [src]="imgBackdropURL + movie?.backdrop_path"
+       onerror="this.src='assets/imgs/thumb.svg'"
+       [alt]="movie.title">
 
   <div class="movie-detail">
 
@@ -43,7 +45,7 @@
       </div>
     </div>
 
-    <span class="countdown-timer" *ngIf="movie.release_date">
+    <span class="countdown-timer" *ngIf="showCountDown">
     {{days + 'd ' +  hours + 'h ' + minutes + 'm ' + seconds + 's'}}
     </span>
 
@@ -86,7 +88,12 @@
       <ion-slide *ngFor="let cast of movie.credits.cast">
 
         <div class="cast">
-          <img class="profile-img" [src]="'https://image.tmdb.org/t/p/w400' + cast.profile_path" [alt]="cast.name">
+          <img
+            class="profile-img"
+            [src]="imgProfileURL + cast.profile_path"
+            onerror="this.src='assets/imgs/thumb.svg'"
+            [alt]="cast.name"
+          >
           <p class="name">{{cast.name}}</p>
           <p class="character">{{cast.character}}</p>
         </div>

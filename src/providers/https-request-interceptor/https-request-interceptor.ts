@@ -5,11 +5,15 @@ import { Injectable } from '@angular/core';
 // Rxjs Imports
 import { Observable } from 'rxjs';
 
+// Config Import
+import { config } from '../../config/config';
+
 @Injectable()
 export class HttpsRequestInterceptorProvider implements HttpInterceptor {
 
-  private apiUrl: string = 'https://api.themoviedb.org/3';
-  private apiKey: string = '';
+  private apiUrl: string = config.apiUrl;
+  private apiKey: string = config.apiKey;
+  private language: string = config.apiLanguage;
 
   constructor() { }
 
@@ -17,7 +21,7 @@ export class HttpsRequestInterceptorProvider implements HttpInterceptor {
 
     const params = new HttpParams()
       .append('api_key', this.apiKey)
-      .append('language', 'pt-BR');
+      .append('language', this.language);
 
     request = request.clone({
       url: `${this.apiUrl + request.urlWithParams}`,

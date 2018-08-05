@@ -11,8 +11,11 @@ import { FavoritesProvider } from '../../providers/favorites/favorites';
 // Page Imports
 import { MovieDetailPage } from '../movie-detail/movie-detail';
 
-// Models
+// Models Imports
 import { Movie } from '../../models/movie';
+
+// Config Imports
+import { config } from '../../config/config';
 
 @Component({
   selector: 'page-favorites',
@@ -25,6 +28,8 @@ export class FavoritesPage {
   movies: Movie[] = [];
 
   loading: Loading;
+
+  imgPosterURL: string = config.imgSizesUrl.poster_sizes.w342;
 
   constructor(
     public navCtrl: NavController,

@@ -12,8 +12,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { MovieProvider } from '../../providers/movie/movie';
 import { FavoritesProvider } from '../../providers/favorites/favorites';
 
-// Models
-import { Movie } from '../../models/movie';
+// Models Imports
+import { EnumMovieStatus, Movie } from '../../models/movie';
+
+// Config Imports
+import { config } from '../../config/config';
 
 @Component({
   selector: 'page-movie-detail',
@@ -25,6 +28,7 @@ export class MovieDetailPage {
 
   isFav: boolean = false;
 
+  // Loading Movie
   loading: any;
 
   // Countdown Timer
@@ -32,8 +36,16 @@ export class MovieDetailPage {
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
+  showCountDown: boolean = true;
 
+  // Images URL
+  imgBackdropURL = config.imgSizesUrl.w400;
+  imgProfileURL = config.imgSizesUrl.profile_sizes.w185;
+
+  // Subscription
   subscription: Subscription;
+
+  timer: any;
 
   constructor(
     public navCtrl: NavController,
@@ -53,7 +65,9 @@ export class MovieDetailPage {
 
   ionViewDidLoad() { }
 
-  ionViewWillUnload() { }
+  ionViewWillUnload() {
+    clearInterval(this.timer);
+  }
 
 
   /**
@@ -90,22 +104,24 @@ export class MovieDetailPage {
   }
 
 
-
   /**
    * Functions
    */
 
   countdownTimer(): void {
 
+    if (this.movie.status === EnumMovieStatus.Released) {
+      this.showCountDown = false;
+      return;
+    }
 
-    let x = setInterval(() => {
+    this.timer = setInterval(() => {
 
       // Get todays date and time
       const now = new Date().getTime();
       const countDownDate = new Date(this.movie.release_date);
-
       // Find the distance between now an the count down date
-      const distance = Number(countDownDate) - now;
+      const distance = countDownDate.getTime() - now;
 
       // Time calculations for days, hours, minutes and seconds
       this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -115,7 +131,7 @@ export class MovieDetailPage {
 
       // If the count down is finished.
       if (distance < 0) {
-        clearInterval(x);
+        clearInterval(this.timer);
         this.days = 0;
         this.hours = 0;
         this.minutes = 0;
